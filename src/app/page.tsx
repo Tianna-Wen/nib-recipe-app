@@ -4,9 +4,10 @@ import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
 import { searchMeals } from "@/util/mealDb";
 import { Meal } from "@/types/meal";
+import RecipeGrip from "@/components/RecipeGrid";
 
 export default function Home() {
-  const [meals, setMeals] = useState<Meal[]>([]);
+  const [meals, setMeals] = useState<Meal[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -46,19 +47,26 @@ export default function Home() {
           </div>
         )}
 
-        <div className="w-full max-w-2xl">
-          {meals.length === 0 && !isLoading && (
-            <p className="text-gray-600 ml-2">
-              No recipes found. Try searching for something else.
-            </p>
-          )}
-          {meals.length > 0 && !isLoading && (
-            <p className="text-gray-600 ml-2">
-              Found{" "}
-              {meals.length === 1 ? "1 recipe" : `${meals.length} recipes`}
-            </p>
-          )}
-        </div>
+        {!isLoading && meals && (
+          <div className="w-full max-w-2xl">
+            {meals.length === 0 && (
+              <p className="text-gray-600 ml-2 mb-2">
+                No recipes found. Try searching for something else.
+              </p>
+            )}
+            {meals.length > 0 && (
+              <p className="text-gray-600 ml-2 mb-2">
+                Found{" "}
+                {meals.length === 1 ? "1 recipe" : `${meals.length} recipes`}
+              </p>
+            )}
+            {meals.map((meal) => (
+              <div key={meal.idMeal}>
+                <RecipeGrip meal={meal} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );

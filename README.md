@@ -58,3 +58,33 @@ A React/Next.js application for searching recipes and building shopping lists.
 
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🧪 Testing
+
+### Running Tests
+
+The project includes comprehensive unit tests for components, hooks, and utility functions.
+
+**Run all tests:**
+
+```bash
+npm test
+```
+
+**Run tests in watch mode (for development):**
+
+```bash
+npm run test:watch
+```
+
+**Run tests with coverage report:**
+
+```bash
+npm run test:coverage
+```
+
+**Run tests in CI mode:**
+
+```bash
+npm run test:ci
+```

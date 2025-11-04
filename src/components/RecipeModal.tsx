@@ -40,6 +40,10 @@ export default function RecipeModal({
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       onClick={handleClickAway}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      data-testid="modal-overlay"
     >
       <div className="bg-white rounded-2xl max-w-3xl max-h-[85vh] overflow-hidden w-full flex flex-col mt-16">
         {/* Header with Image */}
@@ -51,6 +55,8 @@ export default function RecipeModal({
           />
           <button
             onClick={onClose}
+            aria-label="Close modal"
+            data-testid="close-button"
             className="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
           >
             <XMarkIcon className="w-5 h-5" />

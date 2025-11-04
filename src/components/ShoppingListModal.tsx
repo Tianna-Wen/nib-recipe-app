@@ -38,6 +38,10 @@ export default function ShoppingListModal({
     <div
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       onClick={handleClickAway}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      data-testid="modal-overlay"
     >
       <div className="bg-white rounded-2xl max-w-2xl max-h-[80vh] w-full flex flex-col">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
@@ -49,6 +53,8 @@ export default function ShoppingListModal({
           </div>
           <button
             onClick={onClose}
+            aria-label="Close modal"
+            data-testid="close-button"
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <XMarkIcon className="w-5 h-5" />

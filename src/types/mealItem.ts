@@ -3,5 +3,5 @@ export interface MealItem {
   mealId: string;
   mealName: string;
   ingredient: string;
-  measure: string;
+  measure: string | null;
 }

@@ -81,10 +81,10 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <div className="flex flex-col items-center justify-center py-20 px-4">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
+        <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center mt-20 sm:mt-0">
           Recipe Search
         </h1>
-        <div className="fixed top-6 right-6 flex gap-3 z-60">
+        <div className="fixed top-6 right-6 flex flex-col sm:flex-row gap-3 z-60">
           {/* Surprise Me Button */}
           <button
             onClick={handleSurpriseMe}

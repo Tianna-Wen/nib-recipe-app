@@ -43,7 +43,7 @@ export default function ShoppingListModal({
       aria-labelledby="modal-title"
       data-testid="modal-overlay"
     >
-      <div className="bg-white rounded-2xl max-w-2xl max-h-[80vh] w-full flex flex-col">
+      <div className="bg-white rounded-2xl max-w-2xl max-h-[70vh] sm:max-h-[80vh] w-full flex flex-col mt-16 sm:mt-0">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
           <div className="flex items-center gap-3">
             <ShoppingCartIcon className="w-6 h-6 text-green-500" />

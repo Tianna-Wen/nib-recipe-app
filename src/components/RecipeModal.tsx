@@ -46,7 +46,7 @@ export default function RecipeModal({
       aria-labelledby="modal-title"
       data-testid="modal-overlay"
     >
-      <div className="bg-white rounded-2xl max-w-3xl max-h-[85vh] overflow-hidden w-full flex flex-col mt-16">
+      <div className="bg-white rounded-2xl max-w-3xl max-h-[70vh] sm:max-h-[80vh] overflow-hidden w-full flex flex-col mt-16 sm:mt-0">
         {/* Header with Image */}
         <div className="relative flex-shrink-0">
           <Image
@@ -54,7 +54,7 @@ export default function RecipeModal({
             alt={meal.strMeal}
             width={800}
             height={320}
-            className="w-full h-64 object-cover"
+            className="w-full sm:h-64 h-32 object-cover"
           />
           <button
             onClick={onClose}

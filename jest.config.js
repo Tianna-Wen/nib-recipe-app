@@ -15,6 +15,8 @@ const customJestConfig = {
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.d.ts",
     "!src/types/**/*",
+    "!src/app/page.tsx",
+    "!src/app/layout.tsx",
   ],
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
 };

@@ -40,7 +40,7 @@ A React/Next.js application for searching recipes and building shopping lists.
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/Tianna-Wen/nib-recipe-app
+   git clone https://github.com/Tianna-Wen/nib-recipe-app.git
    cd nib-recipe-app
    ```
 

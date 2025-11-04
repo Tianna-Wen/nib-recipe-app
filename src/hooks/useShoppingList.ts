@@ -27,16 +27,21 @@ export function useShoppingList() {
   // Add all ingredients from a meal to the shopping list
   const addMealIngredients = (meal: Meal) => {
     const ingredientsToAdd = extractIngredients(meal);
+
     setShoppingList((prevList) => {
       // Filter out duplicates (based on ingredient name)
       const newItems = ingredientsToAdd.filter(
         (newItem) => !prevList.find((item) => item.id === newItem.id)
       );
-
       return [...prevList, ...newItems];
     });
 
-    return ingredientsToAdd.length; // Return count of added items
+    // Calculate how many items would actually be added
+    const newItemsCount = ingredientsToAdd.filter(
+      (newItem) => !shoppingList.find((item) => item.id === newItem.id)
+    ).length;
+
+    return newItemsCount; // Return count of ACTUALLY added items
   };
 
   // Remove a specific item from shopping list

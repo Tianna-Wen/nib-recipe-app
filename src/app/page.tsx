@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import SearchBar from "@/components/SearchBar";
-import { searchMeals } from "@/util/mealDb";
+import { getRandomMeal, searchMeals } from "@/util/mealDb";
 import { Meal } from "@/types/meal";
 import RecipeGrip from "@/components/RecipeGrid";
 import RecipeModal from "@/components/RecipeModal";
 import { useShoppingList } from "@/hooks/useShoppingList";
-import { ShoppingCartIcon } from "@heroicons/react/16/solid";
+import { ShoppingCartIcon, SparklesIcon } from "@heroicons/react/16/solid";
 import ShoppingListModal from "@/components/ShoppingListModal";
 
 export default function Home() {
@@ -16,6 +16,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
+  const [isSurpriseLoading, setIsSurpriseLoading] = useState(false);
 
   const {
     getSortedList,
@@ -52,6 +53,26 @@ export default function Home() {
     }
   };
 
+  const handleSurpriseMe = async () => {
+    setIsSurpriseLoading(true);
+    setError(null);
+
+    try {
+      const result = await getRandomMeal();
+      if (result.meals && result.meals[0]) {
+        setIsShoppingListOpen(false);
+        setSelectedMeal(result.meals[0]);
+      } else {
+        setError("Failed to get a random recipe. Please try again.");
+      }
+    } catch (err) {
+      setError("Failed to get a random recipe. Please try again.");
+      console.error("Surprise me error:", err);
+    } finally {
+      setIsSurpriseLoading(false);
+    }
+  };
+
   const handleAddToShoppingList = (meal: Meal) => {
     const addedCount = addMealIngredients(meal);
     alert(`Added ${addedCount} ingredients to your shopping list!`);
@@ -63,18 +84,31 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Recipe Search
         </h1>
-        <button
-          onClick={() => setIsShoppingListOpen(true)}
-          className="fixed top-6 right-6 flex items-center gap-2 px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors z-60 shadow-lg"
-        >
-          <ShoppingCartIcon className="w-5 h-5" />
-          My Shopping List
-          {itemCount > 0 && (
-            <span className="bg-white text-green-500 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium">
-              {itemCount}
-            </span>
-          )}
-        </button>
+        <div className="fixed top-6 right-6 flex gap-3 z-60">
+          {/* Surprise Me Button */}
+          <button
+            onClick={handleSurpriseMe}
+            disabled={isSurpriseLoading}
+            className="flex items-center gap-2 px-4 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:bg-purple-400 transition-colors shadow-lg whitespace-nowrap"
+          >
+            <SparklesIcon className="w-5 h-5" />
+            {isSurpriseLoading ? "Loading..." : "Surprise Me"}
+          </button>
+
+          {/* My Shopping List Button */}
+          <button
+            onClick={() => setIsShoppingListOpen(true)}
+            className="flex items-center gap-2 px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors shadow-lg whitespace-nowrap"
+          >
+            <ShoppingCartIcon className="w-5 h-5" />
+            My Shopping List
+            {itemCount > 0 && (
+              <span className="bg-white text-green-500 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium">
+                {itemCount}
+              </span>
+            )}
+          </button>
+        </div>
         <SearchBar onSearch={handleSearch} isLoading={isLoading} />
 
         {error && (

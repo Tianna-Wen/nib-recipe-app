@@ -1,4 +1,5 @@
 import { Meal } from "@/types/meal";
+import Image from "next/image";
 
 interface RecipeGridProps {
   meal: Meal;
@@ -10,9 +11,11 @@ export default function RecipeGrid({ meal }: RecipeGridProps) {
       <div className="w-full px-6 py-4 border border-gray-300 rounded-2xl">
         <div className="flex gap-4">
           <div className="flex-shrink-0">
-            <img
+            <Image
               src={meal.strMealThumb}
               alt={meal.strMeal}
+              width={112}
+              height={112}
               className="w-28 h-28 object-cover rounded-lg"
             />
           </div>

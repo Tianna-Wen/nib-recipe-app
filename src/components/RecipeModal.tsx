@@ -1,6 +1,7 @@
 "use client";
 
 import { Meal } from "@/types/meal";
+import Image from "next/image";
 import {
   PlayIcon,
   ArrowTopRightOnSquareIcon,
@@ -48,9 +49,11 @@ export default function RecipeModal({
       <div className="bg-white rounded-2xl max-w-3xl max-h-[85vh] overflow-hidden w-full flex flex-col mt-16">
         {/* Header with Image */}
         <div className="relative flex-shrink-0">
-          <img
+          <Image
             src={meal.strMealThumb}
             alt={meal.strMeal}
+            width={800}
+            height={320}
             className="w-full h-64 object-cover"
           />
           <button

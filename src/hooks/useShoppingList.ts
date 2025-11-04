@@ -4,20 +4,20 @@ import { extractIngredients } from "@/util/extractIngredients";
 import { MealItem } from "@/types/mealItem";
 
 export function useShoppingList() {
-  const [shoppingList, setShoppingList] = useState<MealItem[]>([]);
+  const [shoppingList, setShoppingList] = useState<MealItem[]>(() => {
+    if (typeof window === "undefined") return [];
 
-  // Load from localStorage on component mount
-  useEffect(() => {
     const stored = localStorage.getItem("nib-shopping-list");
     if (stored) {
       try {
-        setShoppingList(JSON.parse(stored));
+        return JSON.parse(stored);
       } catch (error) {
         console.error("Error parsing shopping list from localStorage:", error);
-        setShoppingList([]);
+        return [];
       }
     }
-  }, []);
+    return [];
+  });
 
   // Save to localStorage whenever shoppingList changes
   useEffect(() => {

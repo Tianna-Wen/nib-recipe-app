@@ -1,17 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "@/components/SearchBar";
 import { searchMeals } from "@/util/mealDb";
 import { Meal } from "@/types/meal";
 import RecipeGrip from "@/components/RecipeGrid";
 import RecipeModal from "@/components/RecipeModal";
+import { useShoppingList } from "@/hooks/useShoppingList";
 
 export default function Home() {
   const [meals, setMeals] = useState<Meal[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
+  const { addMealIngredients } = useShoppingList();
+
+  useEffect(() => {
+    if (selectedMeal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [selectedMeal]); // Only depend on selectedMeal
 
   const handleRecipeClick = (meal: Meal) => {
     setSelectedMeal(meal);
@@ -30,6 +40,11 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAddToShoppingList = (meal: Meal) => {
+    const addedCount = addMealIngredients(meal);
+    alert(`Added ${addedCount} ingredients to your shopping list!`);
   };
 
   return (
@@ -78,6 +93,7 @@ export default function Home() {
         meal={selectedMeal}
         isOpen={!!selectedMeal}
         onClose={() => setSelectedMeal(null)}
+        onAddToShoppingList={handleAddToShoppingList}
       />
     </main>
   );

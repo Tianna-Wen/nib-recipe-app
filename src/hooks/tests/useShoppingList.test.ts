@@ -38,6 +38,10 @@ const mockMeal: Meal = {
   strMealThumb: "https://example.com/image.jpg",
   strYoutube: undefined,
   strSource: undefined,
+  strTags: null,
+  strImageSource: null,
+  strCreativeCommonsConfirmed: null,
+  dateModified: null,
 };
 
 const mockIngredients = [

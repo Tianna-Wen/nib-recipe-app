@@ -19,6 +19,10 @@ const mockMeal: Meal = {
   strMealThumb: "https://example.com/image.jpg",
   strYoutube: "https://youtube.com/test",
   strSource: "https://example.com/source",
+  strTags: null,
+  strImageSource: null,
+  strCreativeCommonsConfirmed: null,
+  dateModified: null,
 };
 
 const mockOnClose = jest.fn();

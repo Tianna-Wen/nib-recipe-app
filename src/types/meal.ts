@@ -5,10 +5,15 @@ export interface Meal {
   strArea: string;
   strMealThumb: string;
   strInstructions: string;
-  strYoutube?: string;
-  strSource?: string;
+  strTags: string | null;
+  strImageSource: string | null;
+  strCreativeCommonsConfirmed: string | null;
+  dateModified: string | null;
+
   [key: `strIngredient${number}`]: string | null; // Dynamic keys for ingredients
   [key: `strMeasure${number}`]: string | null; // Dynamic keys for measures
+  strYoutube?: string;
+  strSource?: string;
 }
 
 export interface MealsResponse {

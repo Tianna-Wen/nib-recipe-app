@@ -7,13 +7,23 @@ import { Meal } from "@/types/meal";
 import RecipeGrip from "@/components/RecipeGrid";
 import RecipeModal from "@/components/RecipeModal";
 import { useShoppingList } from "@/hooks/useShoppingList";
+import { ShoppingCartIcon } from "@heroicons/react/16/solid";
+import ShoppingListModal from "@/components/ShoppingListModal";
 
 export default function Home() {
   const [meals, setMeals] = useState<Meal[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
-  const { addMealIngredients } = useShoppingList();
+  const [isShoppingListOpen, setIsShoppingListOpen] = useState(false);
+
+  const {
+    getSortedList,
+    removeItem,
+    clearShoppingList,
+    addMealIngredients,
+    itemCount,
+  } = useShoppingList();
 
   useEffect(() => {
     if (selectedMeal) {
@@ -53,6 +63,18 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
           Recipe Search
         </h1>
+        <button
+          onClick={() => setIsShoppingListOpen(true)}
+          className="fixed top-6 right-6 flex items-center gap-2 px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors z-60 shadow-lg"
+        >
+          <ShoppingCartIcon className="w-5 h-5" />
+          My Shopping List
+          {itemCount > 0 && (
+            <span className="bg-white text-green-500 rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium">
+              {itemCount}
+            </span>
+          )}
+        </button>
         <SearchBar onSearch={handleSearch} isLoading={isLoading} />
 
         {error && (
@@ -94,6 +116,14 @@ export default function Home() {
         isOpen={!!selectedMeal}
         onClose={() => setSelectedMeal(null)}
         onAddToShoppingList={handleAddToShoppingList}
+      />
+      <ShoppingListModal
+        isOpen={isShoppingListOpen}
+        onClose={() => setIsShoppingListOpen(false)}
+        removeItem={removeItem}
+        clearShoppingList={clearShoppingList}
+        itemCount={itemCount}
+        getSortedList={getSortedList}
       />
     </main>
   );

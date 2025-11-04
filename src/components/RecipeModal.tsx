@@ -41,7 +41,7 @@ export default function RecipeModal({
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
       onClick={handleClickAway}
     >
-      <div className="bg-white rounded-2xl max-w-4xl max-h-[90vh] overflow-hidden w-full flex flex-col">
+      <div className="bg-white rounded-2xl max-w-3xl max-h-[85vh] overflow-hidden w-full flex flex-col mt-16">
         {/* Header with Image */}
         <div className="relative flex-shrink-0">
           <img

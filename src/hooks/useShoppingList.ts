@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import { Meal } from "@/types/meal";
 import { extractIngredients } from "@/util/extractIngredients";
-
-export interface ShoppingListItem {
-  id: string; // mealId + ingredient name for uniqueness
-  mealId: string;
-  mealName: string;
-  ingredient: string;
-  measure: string;
-}
+import { MealItem } from "@/types/mealItem";
 
 export function useShoppingList() {
-  const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>([]);
+  const [shoppingList, setShoppingList] = useState<MealItem[]>([]);
 
   // Load from localStorage on component mount
   useEffect(() => {
@@ -71,7 +64,6 @@ export function useShoppingList() {
   };
 
   return {
-    shoppingList,
     addMealIngredients,
     removeItem,
     removeMealItems,

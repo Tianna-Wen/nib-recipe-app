@@ -1,7 +1,7 @@
 "use client";
 
 import { Meal } from "@/types/meal";
-import { MealItem } from "@/types/shoppingListItem";
+import { MealItem } from "@/types/mealItem";
 
 export const extractIngredients = (meal: Meal): MealItem[] => {
   const ingredients: MealItem[] = [];

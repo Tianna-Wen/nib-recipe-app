@@ -5,11 +5,17 @@ import SearchBar from "@/components/SearchBar";
 import { searchMeals } from "@/util/mealDb";
 import { Meal } from "@/types/meal";
 import RecipeGrip from "@/components/RecipeGrid";
+import RecipeModal from "@/components/RecipeModal";
 
 export default function Home() {
   const [meals, setMeals] = useState<Meal[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
+
+  const handleRecipeClick = (meal: Meal) => {
+    setSelectedMeal(meal);
+  };
 
   const handleSearch = async (query: string) => {
     setIsLoading(true);
@@ -61,13 +67,18 @@ export default function Home() {
               </p>
             )}
             {meals.map((meal) => (
-              <div key={meal.idMeal}>
+              <div key={meal.idMeal} onClick={() => handleRecipeClick(meal)}>
                 <RecipeGrip meal={meal} />
               </div>
             ))}
           </div>
         )}
       </div>
+      <RecipeModal
+        meal={selectedMeal}
+        isOpen={!!selectedMeal}
+        onClose={() => setSelectedMeal(null)}
+      />
     </main>
   );
 }
